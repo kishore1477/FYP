@@ -9,9 +9,11 @@ class AuthController {
     static UserRegisteration = async (req, res) => {
         try {
             console.log("body ", req.body)
-            const { name, registerationID, password } = req.body;
+            
+            const { firstName,lastName,email,address, contact, registerationID, age,password } = req.body;
+            // const { name, registerationID, password } = req.body;
             // Check if required fields are provided
-            if (!name || !registerationID || !password) {
+            if (!firstName || !registerationID || !password) {
                 return res.status(400).json({ "message": 'All fields are required - name,registerationID,password' });
             }
             // Check if the registerationID already exists
@@ -25,8 +27,7 @@ class AuthController {
             const hashPass = await bcrypt.hash(password, salt);
             // Create a new user
             const UserData = new User({
-                name: name,
-                registerationID: registerationID,
+                firstName,lastName,email,address, contact, registerationID,age,
                 password: hashPass,
             });
             // Save the user to the database
@@ -158,6 +159,18 @@ const userDetails = req.user
             res.status(400).json({ msg: 'All fields are required' })
         }
 
+    }
+    static getAllSignUpUsers = async (req, res) => {
+        try {
+            // Fetch all users from the database excluding the password field
+            const allUsers = await User.find({}, '-password');
+            
+            // Return the user data as a response
+            return res.status(200).json(allUsers);
+        } catch (error) {
+            // Handle unexpected errors
+            return res.status(500).json({ "message": 'Internal server error', error });
+        }
     }
 
 }
