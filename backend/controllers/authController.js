@@ -61,11 +61,13 @@ console.log("body login", req.body)
               return  res.status(400).json({ "message": "All field are required" })
             }
             const user = await User.findOne({ registerationID })
+            console.log("user find", user)
             if (!user) {
               return  res.status(400).json({ "message": `Account doesn't exist with ${registerationID}` })
             }
             const isMatch = await bcrypt.compare(password, user.password)
-            if (user.registerationID !== registerationID && !isMatch) {
+            console.log("isMatch", !isMatch)
+            if (user.registerationID !== registerationID || !isMatch) {
              return   res.status(400).json({ "message": "Invalid credentials" })
             }
            
@@ -100,9 +102,10 @@ console.log("body login", req.body)
         }
     }
     static LoggedUserData = (req, res) => {
-const userDetails = req.user
-     return    res.status(200).json({data: userDetails})
-    }
+        const userDetails = req.user
+        console.log("userDetails",userDetails)
+             return    res.status(200).json({data: userDetails})
+            }
 
   
 

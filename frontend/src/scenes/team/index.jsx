@@ -36,6 +36,11 @@ const Team = () => {
       flex: 1,
     },
     {
+      field: "completedTask",
+      headerName: "Completed Task",
+      flex: 1,
+    },
+    {
       field: "accessLevel",
       headerName: "Access Level",
       flex: 1,

@@ -7,7 +7,7 @@ import authRouter from './routes/authRouter.js'
 import mainRouter from './routes/mainRouter.js'
 dotenv.config()
 const port = process.env.PORT ||  8000 
-const dataBase_URL = process.env.DATABASE_URL || 'mongodb+srv://personal:personal@cluster0.jbfhiuh.mongodb.net/?retryWrites=true&w=majority'
+const dataBase_URL = process.env.DATABASE_URL 
 const corsOptions ={
   origin:'*', 
   credentials:true,            //access-control-allow-credentials:true

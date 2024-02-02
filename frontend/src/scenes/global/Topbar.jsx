@@ -1,5 +1,5 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -25,11 +25,16 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import ResetRedux from "../../CommonUnit/ResetRedux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getApiData } from "../../CommonUnit/ApiFunctions";
+import { setUser } from "../../redux/slice/userSlice";
+import { toast } from 'react-toastify';
 const Topbar = () => {
   const theme = useTheme();
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const {user} = useSelector((state) => state?.user)
+  const {isAuthenticated} = useSelector((state) => state?.authentication)
 const {handleReduxReset} =  ResetRedux()
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -52,6 +57,28 @@ const {handleReduxReset} =  ResetRedux()
     navigate('/login')
     localStorage.removeItem('jwtToken');
   };
+  useEffect(()=>{
+    const getLoggedUserData = async()=>{
+      const url = `auth/loggedUserData`
+      try {
+        const res = await getApiData(url)
+        console.log("logged userData",res)
+        if(res.status === 200){
+          const userDetails = res.data?.data
+          dispatch(setUser(userDetails))
+        }else{
+          toast.error(res.response.data.msg)
+        }
+      } catch (error) {
+        console.log("error", error)
+        toast.error(error.response.data.msg)
+      }
+ 
+    }
+    if(isAuthenticated){
+      getLoggedUserData()
+    }
+  },[isAuthenticated])
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -85,7 +112,7 @@ const {handleReduxReset} =  ResetRedux()
 
         <>
         <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' , width: '25%'}} >
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' , width: '15%'}} >
        
         <Tooltip title="Account settings">
           <IconButton
@@ -97,7 +124,7 @@ const {handleReduxReset} =  ResetRedux()
             aria-expanded={open ? 'true' : undefined}
           >
             {/* <Avatar sx={{ width: 32, height: 32 }}>K</Avatar> */}
-            <Avatar sx={{ width: 32, height: 32 }}>{user?.name?.charAt(0)?.toUpperCase()}</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{user?.firstName?.charAt(0)?.toUpperCase()}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -153,7 +180,7 @@ const {handleReduxReset} =  ResetRedux()
       </Menu>
     </React.Fragment>
        </>
-          <PersonOutlinedIcon />
+         
         </IconButton>
       </Box>
     </Box>

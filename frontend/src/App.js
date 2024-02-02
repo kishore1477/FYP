@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -11,7 +11,6 @@ import Form from "./scenes/form";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
@@ -22,10 +21,21 @@ import RenderToolbar from "./components/RenderToolbar";
 import RenderThemeProvider from "./components/RenderThemeProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import GenerateQrCode from "./scenes/QrCode";
+import { useDispatch } from "react-redux";
+import { setToken } from "./redux/slice/authenticationSlice";
+import Profile from "./pages/Profile";
 function App() {
+  const dispatch = useDispatch()
   const [theme, colorMode] = useMode();
 
-
+  useEffect(() => {
+    // Check if there's a token in browser storage
+    const storedToken = localStorage.getItem('jwtToken');
+    // If there is a stored token, dispatch the setToken action
+    if (storedToken) {
+      dispatch(setToken(storedToken));
+    }
+  }, [dispatch]);
   return (
     <ColorModeContext.Provider value={colorMode}>
       {/* <RenderThemeProvider> */}
@@ -42,6 +52,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
@@ -51,7 +62,6 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/generateQrCode" element={<GenerateQrCode />} />
-              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>
