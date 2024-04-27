@@ -15,7 +15,7 @@ const GenerateQrCode = () => {
   const [loading, setLoading] = React.useState(false);
   const [jsonData, setJsonData] = useState([]);
 
-  const apiBaseURl = 'https://8000-patia2-iot-scx2righy6z.ws-us107.gitpod.io/api'
+  const apiBaseURl = ' http://localhost:5000/api'
 
   const validationSchema = yup.object().shape({
     product_name: yup.string().required("Product Name is required"),

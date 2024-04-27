@@ -48,7 +48,7 @@ console.log("state", state)
         if(res.status === 200){
           setLoading(false);
           toast.success(res.data.message, {
-            position: 'top-right', // 'top-right', 'bottom-right', 'bottom-center', 'bottom-left'
+            position: 'top-right',
           })
           const jwtToken  = res?.data?.loginToken
           localStorage.setItem('jwtToken', jwtToken);

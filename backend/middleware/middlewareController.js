@@ -3,6 +3,7 @@ import User from "../model/User.js"
 
 const Userauth = async (req, res, next) => {
     try {
+        console.log("Userauth middleware",req.headers)
         const { authorization } = req.headers
         if (!authorization) {
          return    res.status(401).json({ msg: "Please enter a token for authorization" })

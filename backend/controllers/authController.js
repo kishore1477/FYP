@@ -41,7 +41,7 @@ class AuthController {
                 return res.status(500).json({ "message": 'Error during signup: User not found after saving' });
             }
             // Generate JWT token 
-            const token = jwt.sign({ userID: findsavedUserAfterSaved._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
+            const token = jwt.sign({ userID: findsavedUserAfterSaved._id }, process.env.JWT_SECRET_KEY,);
             // Respond with success and token
             return res.status(200).json({ "token": token, "message": "Signup successfully." });
 
@@ -77,9 +77,13 @@ console.log("body login", req.body)
             const userDetails = {
                 name, registerationID: userregisterationID
             }
-          return  res.status(200).json({ "loginToken": token, "message": "Login Successfully", userDetails })
+            if(token){
+                return  res.status(200).json({ "loginToken": token, "message": "Login Successfully", userDetails })
+            }else{
+                return  res.status(401).json({ "message": "Invalid credentials" })
+            }
         } catch (error) {
-          return  res.status(401).json({ "message": "Internal server error occured" ,"error":`${error}`})
+          return  res.status(500).json({ "message": "Internal server error occured", error })
 
         }
     }

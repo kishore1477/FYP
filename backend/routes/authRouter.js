@@ -3,7 +3,7 @@ import AuthController from '../controllers/authController.js'
 import Userauth from '../middleware/middlewareController.js'
 const app = express()
 const authRouter  = express.Router()
-authRouter.use('/loggedUserData',Userauth)
+// authRouter.use('/loggedUserData',Userauth)
 // app.use('/login', )
 
 authRouter.post('/register',AuthController.UserRegisteration)
