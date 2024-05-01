@@ -54,7 +54,7 @@ const {handleReduxReset} =  ResetRedux()
     // Dispatch the clearToken action to remove the token from the Redux store
     handleReduxReset()
     setAnchorEl(null);
-    navigate('/login')
+    navigate('/')
     localStorage.removeItem('jwtToken');
   };
   useEffect(()=>{

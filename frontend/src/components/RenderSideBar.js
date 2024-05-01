@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../scenes/global/Sidebar';
+import EmployeeSidebar from '../scenes/global/EmployeeSidebar';
 
 const RenderSideBar = () => {
-
+    const { state } = useLocation();
+    const isAdmin = state?.isAdmin;
     const location = useLocation();
-    const hideNavbar = location.pathname 
-  
-    return hideNavbar === '/login' ?<></>:hideNavbar === '/'?<></>: <Sidebar />
-}
+    const hideNavbar = location.pathname;
 
-export default RenderSideBar
+    console.log("isAdmin in side", isAdmin, hideNavbar);
+
+    return hideNavbar === '/login' ? <></> : hideNavbar === '/' ? <></> : hideNavbar.startsWith('/employee/') ? <EmployeeSidebar /> : <Sidebar />;
+};
+
+export default RenderSideBar;

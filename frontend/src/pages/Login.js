@@ -54,7 +54,13 @@ console.log("state", state)
           localStorage.setItem('jwtToken', jwtToken);
           dispatch(setToken(jwtToken));
           resetForm()
-          navigate('/dashboard')
+          if(isAdmin){
+            navigate('/dashboard')
+            localStorage.setItem('isAdmin', true);
+          }else{
+            navigate('/employee/employee-dashboard')
+            localStorage.setItem('isAdmin', false);
+          }
         }else{
           setLoading(false);
           toast.error(res.data.message)

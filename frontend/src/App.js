@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
+import EmployeeDashboard from "./scenes/EmployeeDashboard";
 import Team from "./scenes/team";
 import Invoices from "./scenes/invoices";
 import Contacts from "./scenes/contacts";
@@ -24,6 +25,7 @@ import GenerateQrCode from "./scenes/QrCode";
 import { useDispatch } from "react-redux";
 import { setToken } from "./redux/slice/authenticationSlice";
 import Profile from "./pages/Profile";
+import EmployeeFAQ from "./scenes/faq/Employee";
 function App() {
   const dispatch = useDispatch()
   const [theme, colorMode] = useMode();
@@ -50,6 +52,7 @@ function App() {
             <Routes>
               <Route path="/" element={<FirstHome />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/employee/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
@@ -60,6 +63,7 @@ function App() {
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/employee/faq" element={<EmployeeFAQ />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/generateQrCode" element={<GenerateQrCode />} />
             </Routes>
