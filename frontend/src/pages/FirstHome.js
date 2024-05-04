@@ -28,7 +28,7 @@ const FirstHome = () => {
       {/* Content of the home page */}
 
       <div className='relative w-full h-20 bg-[#dcdfe0] top-52 opacity-80 backdrop-blur-md'>
-        <h6 className="text-red-700 text-xl md:text-3xl text-center pt-4">Welcome to the QR Cloth</h6>
+        <h6 className="text-red-700 text-xl md:text-3xl text-center pt-4">Welcome to the QR Qloth</h6>
       </div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
 
