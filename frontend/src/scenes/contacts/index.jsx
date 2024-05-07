@@ -12,7 +12,7 @@ const  Contacts = () => {
   const theme = useTheme();
  const [rowData, setRowData]= useState([])
   const colors = tokens(theme.palette.mode);
-  const apiBaseURl = ' http://localhost:5000/api'
+  const apiBaseURl = process.env.REACT_APP_backend_url
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "registerationID", headerName: "Registrar ID" },

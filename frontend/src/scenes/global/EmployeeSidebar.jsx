@@ -138,8 +138,8 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Employees Activity"
-              to="/team"
+              title=" My Activity"
+              to="employee/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -176,7 +176,7 @@ const Sidebar = () => {
             /> */}
             <Item
               title="Calendar"
-              to="/calendar"
+              to="employee/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -198,21 +198,21 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Bar Chart"
-              to="/bar"
+              to="employee/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Pie Chart"
-              to="/pie"
+              to="employee/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Line Chart"
-              to="/line"
+              to="employee/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

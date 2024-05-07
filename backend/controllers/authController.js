@@ -75,7 +75,7 @@ console.log("body login", req.body)
             const token = jwt.sign({ userID: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' })
             const { name, registerationID: userregisterationID } = user
             const userDetails = {
-                name, registerationID: userregisterationID
+                name, registerationID: userregisterationID,id:user._id
             }
             if(token){
                 return  res.status(200).json({ "loginToken": token, "message": "Login Successfully", userDetails })

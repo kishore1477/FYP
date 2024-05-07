@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -17,7 +19,7 @@ import { tokens } from "../../theme";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const Calendar = () => {
+const EmployeeCalendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -77,21 +79,7 @@ const Calendar = () => {
         {/* CALENDAR */}
         <Box flex="1 1 100%" ml="15px">
 
-          <div className="flex flex-row gap-3">
-          <div className="w-1/4">
-{
-  usersData?.map((user)=>{
-    return (
-      <div>
-        <p>{user.firstName}</p>
-      </div>
-    )
-  }
-  )
-}
-          </div>
-
-          <div className="w-3/4">
+       
           <FullCalendar
             height="75vh"
             plugins={[
@@ -126,13 +114,11 @@ const Calendar = () => {
               },
             ]}
           />
-          </div>
-          </div>
-         
+     
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default Calendar;
+export default EmployeeCalendar;

@@ -51,7 +51,9 @@ console.log("state", state)
             position: 'top-right',
           })
           const jwtToken  = res?.data?.loginToken
+          console.log("res?.data",res?.data)
           localStorage.setItem('jwtToken', jwtToken);
+          localStorage.setItem('userId', res?.data?.userDetails?.id);
           dispatch(setToken(jwtToken));
           resetForm()
           if(isAdmin){

@@ -16,6 +16,11 @@ const QRCodeSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    employee_id: {
+        ref: 'user',
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     brand: {
         type: String,
         required: true,
@@ -36,7 +41,11 @@ const QRCodeSchema = new mongoose.Schema({
     pocket_type: {
         type: String,
         trim: true
-    }
+    },
+    status: {
+        type: Number,
+        default: 0
+    },
 });
 
 export default mongoose.model("QRCode", QRCodeSchema);
