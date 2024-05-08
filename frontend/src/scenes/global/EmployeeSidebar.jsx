@@ -115,7 +115,7 @@ const Sidebar = () => {
            {user?.firstName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                 Profession Name
+             {localStorage.getItem('firstName')}
                 </Typography>
               </Box>
             </Box>

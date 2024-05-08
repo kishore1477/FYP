@@ -62,7 +62,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Professions", // added
+        legend: isDashboard ? undefined : "Task Type", // added
         legendOffset: 36,
         legendPosition: "middle",
       }}

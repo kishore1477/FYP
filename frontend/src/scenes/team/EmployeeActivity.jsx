@@ -1,16 +1,12 @@
  
 
- import { Box, Typography, useTheme } from "@mui/material";
+ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import Header from "../../components/Header";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Header from "../../components/Header";
+import { tokens } from "../../theme";
 
 const EmployeeActivity = () => {
   const theme = useTheme();
@@ -25,17 +21,18 @@ const EmployeeActivity = () => {
     { field: 'stitching_type', headerName: 'Stitching Type', flex: 1 },
     { field: 'line', headerName: 'Line', type: 'number', flex: 1 },
     { field: 'pocket_type', headerName: 'Pocket Type', flex: 1 },
-    { field: 'status', headerName: 'Status', flex: 1, render: (params) => {
+    { field: 'status', headerName: 'Status', flex: 1, renderCell: (params) => {
+        console.log("params",params.row.status)
         return (
           <Box
             sx={{
               color:
                 params.row.status ===0
-                  ? colors.red[500]
-                  : colors.greenAccent[200],
+                  ? colors?.red?.[500]
+                  : colors?.greenAccent?.[200],
             }}
           >
-            {params.row.status===0 ? "Pending" : "Completed"}
+           {params?.row?.status===1? "Completed" : "Pending"}
           </Box>
         );
       }

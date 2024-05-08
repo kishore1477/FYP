@@ -304,7 +304,7 @@ export const mockTransactions = [
 
 export const mockBarData = [
   {
-    profesions: "A",
+    profesions: "Pending Task",
     "Line 1": 137,
     "hot dogColor": "hsl(229, 70%, 50%)",
     "Line 2": 96,
@@ -317,7 +317,7 @@ export const mockBarData = [
     "Line 5 donutColor": "hsl(274, 70%, 50%)",
   },
   {
-    profesions: "B",
+    profesions: "Completed Task",
     "Line 1": 55,
     "hot dogColor": "hsl(307, 70%, 50%)",
     "Line 2": 28,
@@ -329,109 +329,28 @@ export const mockBarData = [
     "Line 5": 30,
     "Line 5 donutColor": "hsl(274, 70%, 50%)",
   },
-  {
-    profesions: "C",
-    "Line 1": 109,
-    "hot dogColor": "hsl(72, 70%, 50%)",
-    "Line 2": 23,
-    burgerColor: "hsl(96, 70%, 50%)",
-    "Line 3": 34,
-    "Line 3 kebabColor": "hsl(106, 70%, 50%)",
-    "Line 4": 152,
-    "Line 4 donutColor": "hsl(256, 70%, 50%)",
-    "Line 5": 70,
-    "Line 5 donutColor": "hsl(274, 70%, 50%)",
-  },
-  {
-    profesions: "D",
-    "Line 1": 133,
-    "hot dogColor": "hsl(257, 70%, 50%)",
-    "Line 2": 52,
-    burgerColor: "hsl(326, 70%, 50%)",
-    "Line 3": 43,
-    "Line 3 kebabColor": "hsl(110, 70%, 50%)",
-    "Line 4": 83,
-    "Line 4 donutColor": "hsl(9, 70%, 50%)",
-    "Line 5": 40,
-    "Line 5 donutColor": "hsl(274, 70%, 50%)",
-  },
-  {
-    profesions: "E",
-    "Line 1": 81,
-    "hot dogColor": "hsl(190, 70%, 50%)",
-    "Line 2": 80,
-    burgerColor: "hsl(325, 70%, 50%)",
-    "Line 3": 112,
-    "Line 3 kebabColor": "hsl(54, 70%, 50%)",
-    "Line 4": 35,
-    "Line 4 donutColor": "hsl(285, 70%, 50%)",
-    "Line 5": 50,
-    "Line 5 donutColor": "hsl(274, 70%, 50%)",
-  },
-  {
-    profesions: "F",
-    "Line 1": 66,
-    "hot dogColor": "hsl(208, 70%, 50%)",
-    "Line 2": 111,
-    burgerColor: "hsl(334, 70%, 50%)",
-    "Line 3": 167,
-    "Line 3 kebabColor": "hsl(182, 70%, 50%)",
-    "Line 4": 18,
-    "Line 4 donutColor": "hsl(76, 70%, 50%)",
-    "Line 5": 60,
-    "Line 5 donutColor": "hsl(274, 70%, 50%)",
-  },
-  {
-    profesions: "G",
-    "Line 1": 80,
-    "hot dogColor": "hsl(87, 70%, 50%)",
-    "Line 2": 47,
-    burgerColor: "hsl(141, 70%, 50%)",
-    "Line 3": 158,
-    "Line 3 kebabColor": "hsl(224, 70%, 50%)",
-    "Line 4": 49,
-    "Line 4 donutColor": "hsl(274, 70%, 50%)",
-    "Line 5": 70,
-    "Line 5 donutColor": "hsl(274, 70%, 50%)",
-  },
+
 ];
 
 export const mockPieData = [
   {
     id: "A",
-    label: "A",
+    label: "Pending Task",
     value: 239,
     color: "hsl(104, 70%, 50%)",
   },
   {
     id: "B",
-    label: "B",
+    label: "Completed Task",
     value: 170,
     color: "hsl(162, 70%, 50%)",
   },
-  {
-    id: "C",
-    label: "C",
-    value: 322,
-    color: "hsl(291, 70%, 50%)",
-  },
-  {
-    id: "D",
-    label: "D",
-    value: 503,
-    color: "hsl(229, 70%, 50%)",
-  },
-  {
-    id: "E",
-    label: "E",
-    value: 584,
-    color: "hsl(344, 70%, 50%)",
-  },
+
 ];
 
 export const mockLineData = [
   {
-    id: "Line 1",
+    id: "Pending Task",
     color: tokens("dark").greenAccent[500],
     data: [
       {
@@ -485,7 +404,7 @@ export const mockLineData = [
     ],
   },
   {
-    id: "Line 2",
+    id: "Completed Task",
     color: tokens("dark").blueAccent[300],
     data: [
       {
@@ -538,59 +457,6 @@ export const mockLineData = [
       },
     ],
   },
-  {
-    id: "Line 3",
-    color: tokens("dark").redAccent[200],
-    data: [
-      {
-        x: "A",
-        y: 191,
-      },
-      {
-        x: "B",
-        y: 136,
-      },
-      {
-        x: "C",
-        y: 91,
-      },
-      {
-        x: "D",
-        y: 190,
-      },
-      {
-        x: "E",
-        y: 211,
-      },
-      {
-        x: "F",
-        y: 152,
-      },
-      {
-        x: "G",
-        y: 189,
-      },
-      {
-        x: "H",
-        y: 152,
-      },
-      {
-        x: "I",
-        y: 8,
-      },
-      {
-        x: "J",
-        y: 197,
-      },
-      {
-        x: "K",
-        y: 107,
-      },
-      {
-        x: "others",
-        y: 170,
-      },
-    ],
-  },
+ 
 ];
 

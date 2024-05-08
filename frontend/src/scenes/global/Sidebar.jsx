@@ -41,7 +41,7 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useSelector((state)=>state?.user)
-
+const  name =   localStorage.getItem('firstName')
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
@@ -84,7 +84,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  ADMIN
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -103,7 +103,7 @@ const Sidebar = () => {
                   src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 /> */}
- <Avatar sx={{ width: 40, height: 40 }}>{user?.firstName?.charAt(0)?.toUpperCase()}</Avatar>
+ <Avatar sx={{ width: 40, height: 40 }}>{name?.charAt(0)?.toUpperCase()}</Avatar>
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -112,7 +112,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-           {user?.firstName}
+           {name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                  Profession Name

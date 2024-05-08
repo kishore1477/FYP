@@ -76,7 +76,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "professions", // changed
+        legend: isDashboard ? undefined : "Task type", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}

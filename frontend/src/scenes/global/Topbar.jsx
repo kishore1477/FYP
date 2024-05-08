@@ -56,6 +56,7 @@ const {handleReduxReset} =  ResetRedux()
     setAnchorEl(null);
     navigate('/')
     localStorage.removeItem('jwtToken');
+    localStorage.clear()
   };
   useEffect(()=>{
     const getLoggedUserData = async()=>{

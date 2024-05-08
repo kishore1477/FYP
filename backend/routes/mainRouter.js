@@ -6,5 +6,6 @@ const mainRouter  = express.Router()
 
 mainRouter.post('/storeGeneratedQRCode',MainController.StoreGeneratedQRCode)
 mainRouter.get('/getStoreGeneratedQRCodeByEmployeeId/:employeeId',MainController.getStoreGeneratedQRCodeByEmployeeId)
+mainRouter.get('/getStoreGeneratedQRCodeWithEmployee',MainController.getStoreGeneratedQRCodeWithEmployee)
 
 export default mainRouter
