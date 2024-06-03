@@ -11,18 +11,72 @@ import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PieChart from "../../components/PieChart";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const [pieChartData, setPieChartData] = useState([])
+  const [numberOfChartData, setNumberOfChartData] = useState({completed:0,pending:0})
+  const apiBaseURl =process.env.REACT_APP_backend_url
+  const fetchEmployeeActivityData = async () => {
+  
+      try {
+        const userId = localStorage.getItem('userId')
+        const url = `${apiBaseURl}/getStoreGeneratedQRCodeByEmployeeId/${userId}`
+          const res = await axios.get(url)
+          const userData = res?.data
+          console.log("userData", userData)
+          if(res.status === 200){
+          
+              const totalPendingTasks = userData?.filter(task => task.status === 0).length;
+      const totalCompletedTasks = userData?.filter(task => task.status === 1).length;
+      setNumberOfChartData({
+        completed:totalCompletedTasks,
+        pending:totalPendingTasks,
+      })
+      setPieChartData( [
+                {
+                  id: "P",
+                  label: "Pending Task",
+                  value: totalPendingTasks,
+                  color: "hsl(104, 70%, 50%)",
+                },
+                {
+                  id: "C",
+                  label: "Completed Task",
+                  value: totalCompletedTasks,
+                  color: "hsl(162, 70%, 50%)",
+                },
+              
+              ])
+  
+          }
+          } catch (error) {
+          toast.error('Error while fetching')
+      }
+  }
+  useEffect(() => {
+      fetchEmployeeActivityData().then((res) => {
+          console.log("res", res)
+      })
+  }
+  , [])
+  const completedTask =  numberOfChartData?.completed
+  const pendingTask =  numberOfChartData?.pending
+  const TotalTask = completedTask+ pendingTask
+  const completedTaskPercentage = (completedTask/TotalTask) * 100
+  const pendingTaskPercentage = (pendingTask/TotalTask) * 100
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
-        <Box>
+        {/* <Box>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -35,7 +89,7 @@ const Dashboard = () => {
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}
@@ -47,17 +101,17 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
+            title={completedTask}
             subtitle="Completed Task"
             progress="0.75"
-            increase="+14%"
+            increase={`${completedTaskPercentage?.toFixed(0)} %`}
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -65,7 +119,7 @@ const Dashboard = () => {
             }
           />
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -74,7 +128,7 @@ const Dashboard = () => {
         >
           <StatBox
             title="431,225"
-            subtitle="Current Month Income"
+            subtitle="Sales Obtained"
             progress="0.50"
             increase="+21%"
             icon={
@@ -83,19 +137,19 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
+         title={pendingTask}
             subtitle="Pending Task"
             progress="0.30"
-            increase="-5%"
+            increase={`${pendingTaskPercentage.toFixed(0)} %`}
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -104,15 +158,15 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
+            title={TotalTask }
+            subtitle="Total Task"
             progress="0.80"
             increase="+43%"
             icon={
@@ -161,7 +215,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            {/* <LineChart isDashboard={true} /> */}
           </Box>
         </Box>
         <Box
@@ -216,32 +270,7 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 3 */}
-        <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
-        </Box>
+   
         <Box
           gridColumn="span 6"
           gridRow="span 2"
@@ -255,14 +284,27 @@ const Dashboard = () => {
             Sales Quantity
           </Typography>
           <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+            {/* <BarChart isDashboard={true} /> */}
           </Box>
         </Box>
      
       </Box>
+      {/* Pie chart */}
+      <Box m="20px"   backgroundColor={colors.primary[400]}  gridColumn="span 6"
+          gridRow="span 2">
+      {
+        pieChartData && <>
+         <Header title="Pie Chart" subtitle="Simple Pie Chart of Different Professions" />
+      <Box height="75vh">
+        <PieChart data={pieChartData} />
+      </Box>
+        
+        </>
+      }
+     
+    </Box>
     </Box>
   );
 };
 
 export default Dashboard;
-

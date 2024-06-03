@@ -18,7 +18,7 @@ const {state} = useLocation()
 const isAdmin = state?.isAdmin
 console.log("state", state)
   const apiUrl = process.env.REACT_APP_backend_url
-  console.log("apiUrl", apiUrl)
+  console.log("apiUrl is", apiUrl)
   const validationSchema = Yup.object({
     registerId: Yup.string()
       .required('Required'),
@@ -56,8 +56,10 @@ console.log("state", state)
           localStorage.setItem('userId', res?.data?.userDetails?.id);
           localStorage.setItem('firstName', res?.data?.userDetails?.firstName);
           dispatch(setToken(jwtToken));
+          const role = res?.data?.userDetails?.role
+          localStorage.setItem('role', res?.data?.userDetails?.firstName);
           resetForm()
-          if(isAdmin){
+          if(role === 'admin'){
             navigate('/dashboard')
             localStorage.setItem('isAdmin', true);
           }else{

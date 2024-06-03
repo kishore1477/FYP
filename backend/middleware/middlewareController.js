@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken"
 import User from "../model/User.js"
-
 const Userauth = async (req, res, next) => {
     try {
         console.log("Userauth middleware",req.headers)
@@ -18,7 +17,5 @@ const Userauth = async (req, res, next) => {
     } catch (error) {
         res.status(500).json({ msg: "Internal error Occured", error })
     }
-
-
 }
 export default Userauth

@@ -73,12 +73,15 @@ const GenerateQrCode = () => {
         const postData = { product_name, employee, color, size, brand, line, otherDetails, pocket_type, stitching_type };
         jsonData.push(postData);
         const res = await axios.post(url, postData);
+        console.log("res", res)
         if (res.status === 200) {
+          const productId = res?.data?.storedProduct?._id;
+          const qrCodeData = { p:productId, e: employee };
           setLoading(false);
           setShowQRCode(true);
           toast.success(res?.data?.message, { position: 'top-right' });
           resetForm();
-          setJsonData([postData]);
+          setJsonData(qrCodeData);
         } else {
           setLoading(false);
           toast.error(res?.data?.message);

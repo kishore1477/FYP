@@ -34,7 +34,7 @@ const Form = () => {
         const  {firstName,lastName,email,contact,address1,age,address2,registerationID,password} = values
         const url = `${apiBaseURl}/auth/register`
         const postData = {
-          firstName,lastName,email,contact,age,address:`${address1}, ${address2}`,registerationID,password
+          firstName,role:"employee",lastName,email,contact,age,address:`${address1}, ${address2}`,registerationID,password
         }
         const res = await axios.post(url,postData)
         if(res.status === 200){
@@ -64,9 +64,9 @@ const Form = () => {
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
 
       <Formik
-        onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
+        onSubmit={handleFormSubmit}
       >
         {({
           values,

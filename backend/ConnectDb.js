@@ -5,9 +5,9 @@ import mongoose from 'mongoose';
  const connectDb = async(DataBaseUrl)=>{
     try {
         const DB_OPTIONS ={
-            dbName : "fyp"
+            dbName : "fyp",          
         }
-   mongoose.connect(DataBaseUrl, DB_OPTIONS)
+  await mongoose.connect(DataBaseUrl, DB_OPTIONS)
     console.log("connected Successfully")
     } catch (error) {
         console.log(error)

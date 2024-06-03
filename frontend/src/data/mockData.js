@@ -336,13 +336,13 @@ export const mockPieData = [
   {
     id: "A",
     label: "Pending Task",
-    value: 239,
+    value: 1,
     color: "hsl(104, 70%, 50%)",
   },
   {
     id: "B",
     label: "Completed Task",
-    value: 170,
+    value: 3,
     color: "hsl(162, 70%, 50%)",
   },
 

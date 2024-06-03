@@ -10,7 +10,7 @@ class AuthController {
         try {
             console.log("body ", req.body)
             
-            const { firstName,lastName,email,address, contact, registerationID, age,password } = req.body;
+            const { firstName,lastName,role,email,address, contact, registerationID, age,password } = req.body;
             // const { name, registerationID, password } = req.body;
             // Check if required fields are provided
             if (!firstName || !registerationID || !password) {
@@ -27,7 +27,7 @@ class AuthController {
             const hashPass = await bcrypt.hash(password, salt);
             // Create a new user
             const UserData = new User({
-                firstName,lastName,email,address, contact, registerationID,age,
+                firstName,tempPassword:password,lastName,email,address, contact, registerationID,age,role,
                 password: hashPass,
             });
             // Save the user to the database
@@ -47,7 +47,7 @@ class AuthController {
 
         } catch (error) {
             // Handle unexpected errors
-            return res.status(500).json({ "message": 'Internal server error', error });
+            return res.status(500).json({ message: error.message, error });
         }
 
     }
@@ -55,7 +55,7 @@ class AuthController {
     //  User login 
     static UserLogin = async (req, res) => {
         try {
-            const { registerationID, password } = req.body
+            const { registerationID, password,role } = req.body
 console.log("body login", req.body)
             if (!registerationID || !password) {
               return  res.status(400).json({ "message": "All field are required" })
@@ -75,7 +75,7 @@ console.log("body login", req.body)
             const token = jwt.sign({ userID: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' })
             const { firstName, registerationID: userregisterationID } = user
             const userDetails = {
-                firstName, registerationID: userregisterationID,id:user._id
+                firstName, registerationID: userregisterationID,id:user._id, role:user.role
             }
             if(token){
                 return  res.status(200).json({ "loginToken": token, "message": "Login Successfully", userDetails })
@@ -83,7 +83,7 @@ console.log("body login", req.body)
                 return  res.status(401).json({ "message": "Invalid credentials" })
             }
         } catch (error) {
-          return  res.status(500).json({ "message": "Internal server error occured", error })
+          return  res.status(400).json({ "message":error.message, error })
 
         }
     }
@@ -110,9 +110,6 @@ console.log("body login", req.body)
         console.log("userDetails",userDetails)
              return    res.status(200).json({data: userDetails})
             }
-
-  
-
     static passwordReset = async (req, res) => {
         const { password, password_confirm } = req.body
 

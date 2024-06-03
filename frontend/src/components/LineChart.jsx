@@ -1,9 +1,9 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+import { mockLineData} from "../data/mockData";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = ({ isCustomLineColors = false, isDashboard = false,data }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -62,7 +62,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Task Type", // added
+        legend: isDashboard ? undefined : "Name of Employee", // added
         legendOffset: 36,
         legendPosition: "middle",
       }}

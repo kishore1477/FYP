@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const QRCodeSchema = new mongoose.Schema({
     product_name: {
         type: String,
@@ -46,6 +45,6 @@ const QRCodeSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-});
 
+},{timestamps:true});
 export default mongoose.model("QRCode", QRCodeSchema);
