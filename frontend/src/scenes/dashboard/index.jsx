@@ -7,6 +7,7 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
+import dayjs from 'dayjs'
 import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
@@ -109,7 +110,7 @@ const Dashboard = () => {
     return {
       txId: user?._id?.slice(0, 5),
       user: user?.employee?.firstName,
-      date: user?.createdAt,
+      date:dayjs(user?.createdAt)?.format('DD-MM-YYYY hh:mm A'),
       cost: user?.status === 0 ? "Pending" : "Completed",
     };
   });

@@ -15,11 +15,13 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PieChart from "../../components/PieChart";
+import dayjs from "dayjs";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [pieChartData, setPieChartData] = useState([])
+  const [data, setData] = useState([])
   const [numberOfChartData, setNumberOfChartData] = useState({completed:0,pending:0})
   const apiBaseURl =process.env.REACT_APP_backend_url
   const fetchEmployeeActivityData = async () => {
@@ -31,7 +33,7 @@ const Dashboard = () => {
           const userData = res?.data
           console.log("userData", userData)
           if(res.status === 200){
-          
+            setData(res?.data)
               const totalPendingTasks = userData?.filter(task => task.status === 0).length;
       const totalCompletedTasks = userData?.filter(task => task.status === 1).length;
       setNumberOfChartData({
@@ -70,6 +72,14 @@ const Dashboard = () => {
   const TotalTask = completedTask+ pendingTask
   const completedTaskPercentage = (completedTask/TotalTask) * 100
   const pendingTaskPercentage = (pendingTask/TotalTask) * 100
+  const mostRecentData = data?.map((user) => {
+    return {
+      txId: user?._id,
+      user: user?.brand,
+      date:dayjs(user?.createdAt)?.format('DD-MM-YYYY hh:mm A'),
+      cost: user?.status === 0 ? "Pending" : "Completed",
+    };
+  });
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -178,48 +188,21 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 2 */}
+        <Box m="20px"   backgroundColor={colors.primary[400]}  gridColumn="span 6"
+          gridRow="span 3">
+      {
+        pieChartData && <>
+         <Header title="Pie Chart" subtitle="Simple Pie Chart of Different Professions" />
+      <Box height="40vh">
+        <PieChart data={pieChartData} />
+      </Box>
+        
+        </>
+      }
+     
+    </Box>
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            {/* <LineChart isDashboard={true} /> */}
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -236,7 +219,7 @@ const Dashboard = () => {
               Recent Status 
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {mostRecentData.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
@@ -271,38 +254,11 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
    
-        <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Sales Quantity
-          </Typography>
-          <Box height="250px" mt="-20px">
-            {/* <BarChart isDashboard={true} /> */}
-          </Box>
-        </Box>
+    
+      
      
       </Box>
       {/* Pie chart */}
-      <Box m="20px"   backgroundColor={colors.primary[400]}  gridColumn="span 6"
-          gridRow="span 2">
-      {
-        pieChartData && <>
-         <Header title="Pie Chart" subtitle="Simple Pie Chart of Different Professions" />
-      <Box height="75vh">
-        <PieChart data={pieChartData} />
-      </Box>
-        
-        </>
-      }
-     
-    </Box>
     </Box>
   );
 };

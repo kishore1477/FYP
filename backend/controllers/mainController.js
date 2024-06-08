@@ -19,7 +19,7 @@ class MainController  {
     static getStoreGeneratedQRCodeByEmployeeId = async (req, res) => {
         try {
             const employeeId = req.params.employeeId;
-            const qrCodes = await QRCode.find({ employee_id: employeeId });
+            const qrCodes = await QRCode.find({ employee_id: employeeId }).sort({updatedAt:-1});
           return   res.status(200).json(qrCodes); 
           } catch (error) {
             console.error('Error fetching data by employee_id:', error);

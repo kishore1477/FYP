@@ -114,9 +114,7 @@ const  name =   localStorage.getItem('firstName')
                 >
            {name}
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                 Profession Name
-                </Typography>
+             
               </Box>
             </Box>
           )}
