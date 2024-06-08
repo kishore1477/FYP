@@ -18,7 +18,7 @@ app.use(express.json())
 app.use('/api/auth',authRouter)
 app.use('/api',mainRouter)
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World!, Welcome to our FYP API')
 })
 //Connect to the database before listening
 connectDb(dataBase_URL).then(() => {
